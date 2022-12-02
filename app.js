@@ -1,6 +1,23 @@
 import express from 'express';
-const app = express();
-app.get('/', (req, res) => {
-  res.send('Welcome to GameShop!');
+import mongoose from 'mongoose';
+import cors from 'cors';
+
+import gameController from './controllers/gameController.js';
+
+// const CONNECTION_STRING = process.env.DB_CONNECTION_STRING || 'mongodb://localhost:27017/gameshop';
+const CONNECTION_STRING = 'mongodb://localhost:27017/gameshop';
+
+mongoose.connect(CONNECTION_STRING, (err) => {
+  if (err) throw console.log({ err });
 });
-app.listen(4000);
+
+const app = express();
+app.use(cors());
+app.use(express.json());
+
+gameController(app);
+
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => {
+  console.log('Server is running on port', PORT);
+});
