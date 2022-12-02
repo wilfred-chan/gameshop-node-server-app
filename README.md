@@ -19,8 +19,11 @@ BASE_URL = `https://gameshop.herokuapp.com/api`
 ### Endpoint
 
 List all games: `GET`, `/games`
+
 Create a game: `POST`, `/games`
+
 Delete a game: `DELETE`, `/games/:id`
+
 Update a game: `PUT`, `/games/:id`
 
 ### Sample Data
