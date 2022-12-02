@@ -22,12 +22,8 @@ const gameSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    content: {
+    cover_image: {
       type: String,
-      required: true,
-    },
-    images: {
-      type: Object,
       required: true,
     },
   },
