@@ -1,6 +1,7 @@
 import gameModel from '../models/gameModel.js';
-export const findGame = () => gameModel.find();
+export const findGames = () => gameModel.find();
+// export const findGame = (gid) => gameModel.findOne({ game_id: gid });
 export const createGame = (game) => gameModel.create(game);
-export const deleteGame = (id) => gameModel.deleteOne({ _id: id });
-export const updateGame = (id, game) =>
-  gameModel.updateOne({ _id: id }, { $set: game });
+export const deleteGame = (gid) => gameModel.deleteOne({ game_id: gid });
+export const updateGame = (gid, game) =>
+  gameModel.updateOne({ game_id: gid }, { $set: game });
