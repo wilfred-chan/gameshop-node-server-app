@@ -1,4 +1,5 @@
 import * as gameDAO from '../DAOs/gameDAO.js';
+import axios from 'axios';
 
 const gameController = (app) => {
   app.get('/api/games', getGames);
@@ -7,6 +8,9 @@ const gameController = (app) => {
   app.delete('/api/games/:gid', deleteGame);
   app.put('/api/games/:gid', updateGame);
 };
+
+const RAWG_API_URL = 'https://api.rawg.io/api/games/';
+const RAWG_API_KEY = process.env.RAWG_API_KEY;
 
 const getGames = async (req, res) => {
   try {
@@ -19,9 +23,44 @@ const getGames = async (req, res) => {
 
 const findGameById = async (req, res) => {
   try {
+    // find the game in local database
     const gameIdToFind = req.params.gid;
+    console.log('current game:', gameIdToFind);
     const game = await gameDAO.findGame(gameIdToFind);
-    res.json(game);
+    // retrieve data from RAWG API
+    const config = {
+      headers: { 'accept-encoding': '*' },
+      params: { key: RAWG_API_KEY },
+    };
+    const extraInfo = await axios
+      .get(RAWG_API_URL + gameIdToFind, config)
+      .then((response) => {
+        return response.data;
+      })
+      .catch((err) => {
+        console.log(err);
+        return {};
+      });
+    const { rating, esrb_rating } = extraInfo;
+    // retrieve game screenshots
+    const screenshots = await axios
+      .get(RAWG_API_URL + gameIdToFind + '/screenshots', config)
+      .then((response) => {
+        return response.data.results;
+      })
+      .catch((err) => {
+        console.log(err);
+        return [];
+      });
+    console.log({ screenshots });
+    // merge extra game information from RAWG API with local database data
+    const mergedGame = {
+      ...game._doc,
+      rating,
+      esrb_rating: esrb_rating.name,
+      screenshots: screenshots.map((screenshot) => screenshot.image),
+    };
+    res.json(mergedGame);
   } catch (err) {
     return res.status(500).json({ msg: err.message });
   }
