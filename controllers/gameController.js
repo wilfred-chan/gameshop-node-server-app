@@ -25,7 +25,6 @@ const findGameById = async (req, res) => {
   try {
     // find the game in local database
     const gameIdToFind = req.params.id;
-    console.log('current game:', gameIdToFind);
     const game = await gameDAO.findGame(gameIdToFind);
     // retrieve data from RAWG API
     const config = {
@@ -52,7 +51,6 @@ const findGameById = async (req, res) => {
         console.log(err);
         return [];
       });
-    console.log({ screenshots });
     // merge extra game information from RAWG API with local database data
     const mergedGame = {
       ...game._doc,
