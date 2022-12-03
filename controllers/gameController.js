@@ -3,7 +3,7 @@ import gameModel from '../models/gameModel.js';
 
 const gameController = (app) => {
   app.get('/api/games', getGames);
-  //   app.get('/api/games/:gid', findGameById);
+  app.get('/api/games/:gid', findGameById);
   app.post('/api/games', createGame);
   app.delete('/api/games/:gid', deleteGame);
   app.put('/api/games/:gid', updateGame);
@@ -17,6 +17,17 @@ const getGames = async (req, res) => {
     return res.status(500).json({ msg: err.message });
   }
 };
+
+const findGameById = async (req, res) => {
+  try {
+    const gameIdToFind = req.params.gid;
+    const game = await gameDAO.findGame(gameIdToFind);
+    res.json(game);
+  } catch (err) {
+    return res.status(500).json({ msg: err.message });
+  }
+};
+
 const createGame = async (req, res) => {
   try {
     // const { game_id, cover_image } = req.body;
