@@ -3,10 +3,10 @@ import axios from 'axios';
 
 const gameController = (app) => {
   app.get('/api/games', getGames);
-  app.get('/api/games/:gid', findGameById);
+  app.get('/api/games/:id', findGameById);
   app.post('/api/games', createGame);
-  app.delete('/api/games/:gid', deleteGame);
-  app.put('/api/games/:gid', updateGame);
+  app.delete('/api/games/:id', deleteGame);
+  app.put('/api/games/:id', updateGame);
 };
 
 const RAWG_API_URL = 'https://api.rawg.io/api/games/';
@@ -24,7 +24,7 @@ const getGames = async (req, res) => {
 const findGameById = async (req, res) => {
   try {
     // find the game in local database
-    const gameIdToFind = req.params.gid;
+    const gameIdToFind = req.params.id;
     console.log('current game:', gameIdToFind);
     const game = await gameDAO.findGame(gameIdToFind);
     // retrieve data from RAWG API
@@ -83,7 +83,7 @@ const createGame = async (req, res) => {
 };
 const deleteGame = async (req, res) => {
   try {
-    const gameIdToDelete = req.params.gid;
+    const gameIdToDelete = req.params.id;
     const status = await gameDAO.deleteGame(gameIdToDelete);
     res.json({ msg: 'Deleted a game.', status });
   } catch (err) {
@@ -96,7 +96,7 @@ const updateGame = async (req, res) => {
     // if (!cover_image)
     //   return res.status(400).json({ msg: 'No cover image URL provided.' });
 
-    const gameIdToUpdate = req.params.gid;
+    const gameIdToUpdate = req.params.id;
     const updates = req.body;
     const status = await gameDAO.updateGame(gameIdToUpdate, updates);
     res.json({ msg: 'Updated a game', status });
