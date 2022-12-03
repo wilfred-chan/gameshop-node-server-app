@@ -1,5 +1,4 @@
 import * as gameDAO from '../DAOs/gameDAO.js';
-import gameModel from '../models/gameModel.js';
 
 const gameController = (app) => {
   app.get('/api/games', getGames);
