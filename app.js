@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 
 import gameController from './controllers/gameController.js';
+import userController from './controllers/userController.js';
 
 const CONNECTION_STRING =
   process.env.DB_CONNECTION_STRING || 'mongodb://localhost:27017/gameshop';
@@ -19,6 +20,7 @@ app.get('/', (req, res) => {
   res.send('Welcome to GameShop Server-side!');
 });
 gameController(app);
+userController(app);
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
