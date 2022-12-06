@@ -22,7 +22,7 @@ BASE_URL = `https://gameshop.herokuapp.com/api`
 
 Type: `GET`, Endpoint: `/games`
 
-#### Sample Data
+#### Sample Reponse Data
 
 `...` stands for omitted long content.
 
@@ -63,7 +63,7 @@ The `id` here is actually the `game_id`, as shown in previous sample data. For e
 
 The details includes extra information like the RAWG community rating of the game, the ESRB rating of the game, and an array of urls of its screenshots.
 
-#### Sample Data
+#### Sample Reponse Data
 
 ```json
 {
@@ -94,6 +94,100 @@ Type: `DELETE`, Endpoint: `/games/:id`
 ### Update a Game
 
 Type: `PUT`, Endpoint: `/games/:id`
+
+### Register a New Account
+
+Type: `POST`, Endpoint: `/register`
+
+The request body must include these keys: `username`, `email`, `password`.
+
+#### Sample Data
+
+##### Request
+
+```json
+{
+  "username": "gamer",
+  "email": "gamer@test.com",
+  "password": "test"
+}
+```
+
+##### Reponse
+
+```json
+{
+  "username": "gamer",
+  "firstname": "",
+  "lastname": "",
+  "email": "gamer@test.com",
+  "role": "customer",
+  "bio": "This gamer is lazy and has not written a bio yet.",
+  "location": "Unknown",
+  "image_url": "/images/avatar/avatar.jpeg",
+  "cart": [],
+  "_id": "638fc90a8e8b250cb765dd51"
+}
+```
+
+### Login
+
+Type: `POST`, Endpoint: `/login`
+
+The request body must include these keys: `email`, `password`.
+
+#### Sample Data
+
+##### Request
+
+```json
+{
+  "email": "gamer@test.com",
+  "password": "test"
+}
+```
+
+##### Reponse
+
+```json
+{
+  "_id": "638fc90a8e8b250cb765dd51",
+  "username": "gamer",
+  "firstname": "",
+  "lastname": "",
+  "email": "gamer@test.com",
+  "role": "customer",
+  "bio": "This gamer is lazy and has not written a bio yet.",
+  "location": "Unknown",
+  "image_url": "/images/avatar/avatar.jpeg",
+  "cart": [],
+  "__v": 0
+}
+```
+
+### Update Profile or Cart for a User
+
+Type: `PUT`, Endpoint: `/users/:username`
+
+#### Sample Data
+
+##### Request `/users/gamer`
+
+```json
+{
+  "password": "123456"
+}
+```
+
+##### Reponse
+
+```json
+{
+{
+  "msg": "User updated successfully"
+}
+}
+```
 
 ## 注意事项
 
