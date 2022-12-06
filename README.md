@@ -16,7 +16,7 @@ In the project directory, you can run:
 
 BASE_URL = `https://gameshop.herokuapp.com/api`
 
-## Endpoints
+## Games Endpoints
 
 ### List All Local Games
 
@@ -94,6 +94,31 @@ Type: `DELETE`, Endpoint: `/games/:id`
 ### Update a Game
 
 Type: `PUT`, Endpoint: `/games/:id`
+
+## Users Endpoints
+
+These test accounts below are already in MongoDB database, you can try them to login.:
+
+```json
+[
+  {
+    "username": "elonmusk66",
+    "email": "elon@test.com",
+    "password": "test"
+  },
+  {
+    "username": "jeffbezos",
+    "email": "jeff@test.com",
+    "password": "test"
+  },
+  {
+    "username": "admin",
+    "email": "admin@test.com",
+    "password": "test"
+    // this user is assigned with the "admin" role
+  }
+]
+```
 
 ### Register a New Account
 
@@ -174,19 +199,13 @@ Type: `PUT`, Endpoint: `/users/:username`
 ##### Request `/users/gamer`
 
 ```json
-{
-  "password": "123456"
-}
+{ "password": "123456" }
 ```
 
 ##### Reponse
 
 ```json
-{
-{
-  "msg": "User updated successfully"
-}
-}
+{ "msg": "User updated successfully" }
 ```
 
 ## 注意事项
