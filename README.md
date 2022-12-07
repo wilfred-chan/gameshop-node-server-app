@@ -224,7 +224,7 @@ Type: `GET`, Endpoint: `/search/:input`
 
 Say we want to search "witcher" in the third-party online database, we can send a GET request using `https://gameshop.herokuapp.com/api/search/witcher`. The API will return an array of at most 10 games that match the search input. For the game which is also in our local database, it will be merged with the local data.
 
-As you can see below, `the-witcher-3-wild-hunt` has more fields compared to other search results, because it is also in our local database.
+As you can see below, `the-witcher-3-wild-hunt` has more fields compared to other search results, because it is also in our local database. And I added a boolean field `in_stock` to indicate whether the game is in our local database or not. This will help frontend developers to determine whether to make the link to game detail page.
 
 ##### Reponse
 
@@ -234,35 +234,40 @@ As you can see below, `the-witcher-3-wild-hunt` has more fields compared to othe
     "game_id": "witcher",
     "title": "witcher",
     "rating": 0,
-    "released": "2019-08-18"
+    "released": "2019-08-18",
+    "in_stock": false
   },
   {
     "game_id": "the-witcher",
     "title": "The Witcher",
     "rating": 4.15,
-    "released": "2007-10-24"
+    "released": "2007-10-24",
+    "in_stock": false
   },
   {
     "game_id": "the-witcher-3-wild-hunt",
     "title": "The Witcher 3: Wild Hunt",
     "rating": 4.67,
-    "released": "2015-05-18",
+    "released": "2015-05-18",,
+    "in_stock": true,
     "_id": "638a37c5bc9522e3c1392f59",
     "price": 39.99,
     "description": "The Witcher 3: Wild Hunt is a 2015 action role-playing game developed and published by CD Projekt. Based on The Witcher series of fantasy novels by Polish author Andrzej Sapkowski, it is the sequel to the 2011 game The Witcher 2: Assassins of Kings and the third main installment in The Witcher video game series, played in an open world with a third-person perspective.",
-    "cover_image": "https://upload.wikimedia.org/wikipedia/en/0/0c/Witcher_3_cover_art.jpg"
+    "cover_image": "https://upload.wikimedia.org/wikipedia/en/0/0c/Witcher_3_cover_art.jpg",
   },
   {
     "game_id": "the-watchers-devour",
     "title": "The Watchers: DEVOUR",
     "rating": 3.09,
-    "released": "2021-01-28"
+    "released": "2021-01-28",
+    "in_stock": false
   },
   {
     "game_id": "watchers",
     "title": "Watchers",
     "rating": 2.55,
-    "released": "2019-10-22"
+    "released": "2019-10-22",
+    "in_stock": false
   }
 ]
 ```
@@ -286,3 +291,7 @@ As you can see below, `the-witcher-3-wild-hunt` has more fields compared to othe
    ```
 
    这样就把购物车里的游戏**覆盖**更新成了`cyberpunk-2077`和`the-witcher-3-wild-hunt`。所以前端方面，我估计是需要 `{cart: [...cart, "cyberpunk-2077”]}` 这样的形式来更新。
+
+4. 搜索 API 结果中，每个 game 都有一个 `in_stock` 字段，用来表示该游戏是否在我们的本地数据库中。如果是 `true`，则表示该游戏在我们的数据库中，前端可以利用 `game_id` 生成 URL，然后渲染一个超链接跳转到游戏详情页。
+
+5. 第三方 API 的搜索结果里默认是没有封面图的，所以在搜索页内，可以不显示封面，只显示纯文字的搜索结果。不过如果是本地数据库也有的游戏，那么可以考虑显示封面图。

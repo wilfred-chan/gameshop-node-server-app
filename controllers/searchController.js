@@ -37,7 +37,13 @@ const searchGames = async (req, res) => {
       if (game !== null) {
         results[i] = {
           ...result,
+          in_stock: true,
           ...game._doc,
+        };
+      } else {
+        results[i] = {
+          ...result,
+          in_stock: false,
         };
       }
     }
