@@ -4,6 +4,7 @@ import cors from 'cors';
 
 import gameController from './controllers/gameController.js';
 import userController from './controllers/userController.js';
+import searchController from './controllers/searchController.js';
 
 const CONNECTION_STRING =
   process.env.DB_CONNECTION_STRING || 'mongodb://localhost:27017/gameshop';
@@ -21,6 +22,7 @@ app.get('/', (req, res) => {
 });
 gameController(app);
 userController(app);
+searchController(app);
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
