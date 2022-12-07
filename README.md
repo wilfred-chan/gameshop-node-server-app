@@ -87,13 +87,19 @@ The details includes extra information like the RAWG community rating of the gam
 
 Type: `POST`, Endpoint: `/games`
 
+If success, it will return the newly created game object.
+
 ### 1.5. Delete a Game
 
 Type: `DELETE`, Endpoint: `/games/:id`
 
+If success, it will return something like this `{ "msg": "Deleted a game." }`.
+
 ### 1.6. Update a Game
 
 Type: `PUT`, Endpoint: `/games/:id`
+
+If success, it will return something like this `{ "msg": "Updated a game." }`.
 
 ## 2. Users Endpoints
 
@@ -216,9 +222,9 @@ Type: `GET`, Endpoint: `/search/:input`
 
 #### Sample
 
-Say we want to search "witcher" in both third-party online database and local database, we can send a GET request using `https://gameshop.herokuapp.com/api/search/witcher`. The API will return an array of at most 10 games that match the search input. For the games which are also in our local database, they will be merged with the local data.
+Say we want to search "witcher" in the third-party online database, we can send a GET request using `https://gameshop.herokuapp.com/api/search/witcher`. The API will return an array of at most 10 games that match the search input. For the game which is also in our local database, it will be merged with the local data.
 
-As you can see below, `the-witcher-3-wild-hunt` has more fields compared to other search results, because it is in our local database.
+As you can see below, `the-witcher-3-wild-hunt` has more fields compared to other search results, because it is also in our local database.
 
 ##### Reponse
 
