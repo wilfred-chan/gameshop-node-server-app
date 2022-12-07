@@ -23,9 +23,9 @@ const register = async (req, res) => {
     delete createdUser['_doc']['password'];
     res.json(createdUser);
   } catch (error) {
-    res
-      .status(401)
-      .json({ msg: 'No value for key username, email, or password' });
+    res.status(401).json({
+      msg: 'No value for key username, email, or password. ' + error.msg,
+    });
   }
 };
 
@@ -46,9 +46,9 @@ const login = async (req, res) => {
 const updateUser = async (req, res) => {
   const user = req.body;
   const username = req.params.username;
-  const result = await userDAO.updateUser(username, user);
-  if (result.modifiedCount === 1) {
-    res.json({ msg: 'User updated successfully' });
+  const status = await userDAO.updateUser(username, user);
+  if (status.modifiedCount === 1) {
+    res.json({ msg: 'User updated successfully', status });
   } else {
     res.status(404).json({ msg: 'User not found' });
   }

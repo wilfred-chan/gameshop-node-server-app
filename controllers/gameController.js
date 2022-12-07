@@ -97,7 +97,7 @@ const updateGame = async (req, res) => {
     const gameIdToUpdate = req.params.id;
     const updates = req.body;
     const status = await gameDAO.updateGame(gameIdToUpdate, updates);
-    res.json({ msg: 'Updated a game', status });
+    res.json({ msg: 'Updated a game.', status });
   } catch (err) {
     return res.status(500).json({ msg: err.message });
   }
