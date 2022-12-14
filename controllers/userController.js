@@ -1,7 +1,7 @@
 import e from 'express';
 import * as userDAO from '../DAOs/userDAO.js';
 const userController = (app) => {
-  // app.get('/api/users', userDAO.findAllUsers);
+  app.get('/api/users', getFriends);
   // app.post('/api/users', userDAO.createUser);
   app.put('/api/users/:username', updateUser);
   app.post('/api/register', register);
@@ -51,6 +51,16 @@ const updateUser = async (req, res) => {
     res.json({ msg: 'User updated successfully', status });
   } else {
     res.status(404).json({ msg: 'User not found' });
+  }
+};
+
+const getFriends = async (req, res) => {
+  try {
+    const users = await userDAO.findAllUsers();
+    const friends = users.filter((user) => user.role === 'customer');
+    res.json(friends);
+  } catch (err) {
+    return res.status(500).json({ msg: err.message });
   }
 };
 

@@ -47,6 +47,10 @@ const userSchema = new mongoose.Schema(
       type: [String],
       default: [], // e.g. ['elden-ring', 'cyberpunk-2077']
     },
+    favorites: {
+      type: [String],
+      default: [], // e.g. ['elden-ring', 'cyberpunk-2077']
+    }
   },
   {
     collection: 'users',
