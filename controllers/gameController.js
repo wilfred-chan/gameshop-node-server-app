@@ -40,7 +40,7 @@ const findGameById = async (req, res) => {
         console.log(err);
         return {};
       });
-    const { rating, esrb_rating } = extraInfo;
+    let { rating, esrb_rating } = extraInfo;
     // retrieve game screenshots
     const screenshots = await axios
       .get(RAWG_API_URL + gameIdToFind + '/screenshots', config)
