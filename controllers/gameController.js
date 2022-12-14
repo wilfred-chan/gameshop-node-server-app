@@ -52,6 +52,7 @@ const findGameById = async (req, res) => {
         return [];
       });
     // merge extra game information from RAWG API with local database data
+    if (esrb_rating === null) esrb_rating = { name: 'Not rated' };
     const mergedGame = {
       ...game._doc,
       rating,
