@@ -2,7 +2,7 @@ import e from 'express';
 import * as userDAO from '../DAOs/userDAO.js';
 const userController = (app) => {
   app.get('/api/users', getFriends);
-  // app.post('/api/users', userDAO.createUser);
+  app.get('/api/users/:username', userDAO.findByUsername);
   app.put('/api/users/:username', updateUser);
   app.post('/api/register', register);
   app.post('/api/login', login);
